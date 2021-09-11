@@ -1,0 +1,63 @@
+#include "headers.h"
+#include "display.h"
+void execute(int task_id)
+{
+    char *argv[32];
+    int i = 0;
+    argv[0] = strtok(extra_task[task_id], " \t");
+    while (argv[i] != NULL)
+    {
+        //printf("%s\n",argv[i]);
+        i++;
+        argv[i] = strtok(NULL, " \t");
+    }
+    pid_t child_pid = fork();
+    if (child_pid == 0)
+    {
+        /* Never returns if the call is successful */
+        if(execvp(argv[0], argv)<0)
+            printf("This won't be printed if execvp is successul\n");
+        exit(0);
+    }
+    else
+    {
+        wait(NULL);
+    }
+}
+
+int main()
+{
+    username = (char *)malloc(1024);
+    username = getenv("USER");
+    gethostname(sys_name, sizeof(sys_name));
+    getcwd(tilda, sizeof(tilda));
+    printf("~ is equal to %s\n",tilda);
+    char *line;
+    size_t buf = 0;
+    int read;
+    while (1)
+    {
+        dis();
+        read = getline(&line, &buf, stdin);
+        // hello\n input hai to line mai bhi hello\n
+        // \n ko \0
+        line[read - 1] = '\0';
+        // break it wrt ;
+        // to get the number of commands
+        // break the command wrt to '' '\t'
+        // strtok
+        int number_of_task = 0;
+        task = strtok(line, ";");
+        while (task != NULL)
+        {
+            extra_task[number_of_task] = task;
+            number_of_task++;
+            //printf("%s\n",task);
+            task = strtok(NULL, ";");
+        }
+        for (int j = 0; j < number_of_task; j++)
+        {
+            execute(j);
+        }
+    }
+}
