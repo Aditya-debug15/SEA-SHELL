@@ -9,6 +9,7 @@
 #include <sys/wait.h>
 char* task;
 char* extra_task[32];
+char *argv[32];
 char* username;
 char sys_name[1024];
 char curr_dir[1024];
