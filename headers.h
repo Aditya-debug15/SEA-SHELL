@@ -2,6 +2,7 @@
 #define __HEADERS_H
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -13,5 +14,7 @@ char *argv[32];
 char* username;
 char sys_name[1024];
 char curr_dir[1024];
+bool oldpwd;
+char old_dir[1024];
 char tilda[1024];
 #endif

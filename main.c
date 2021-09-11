@@ -47,6 +47,7 @@ void execute(int task_id)
 
 int main()
 {
+    oldpwd=false;
     username = (char *)malloc(1024);
     username = getenv("USER");
     gethostname(sys_name, sizeof(sys_name));
