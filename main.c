@@ -3,6 +3,7 @@
 #include "echo_b.h"
 #include "pwd.h"
 #include "cd_b.h"
+#include "ls_b.h"
 void execute(int task_id)
 {
     int i = 0;
@@ -13,7 +14,16 @@ void execute(int task_id)
         i++;
         argv[i] = strtok(NULL, " \t");
     }
-    if (!strcmp("echo", argv[0]))
+    if(!strcmp("exit",argv[0]))
+    {
+        exit(0);
+    }
+    else if(!strcmp("ls",argv[0]))
+    {
+        ls(i);
+        printf("done by me");
+    }
+    else if (!strcmp("echo", argv[0]))
     {
         echo(i);
         //printf("done by me\n");
@@ -28,6 +38,7 @@ void execute(int task_id)
         cd(i);
         printf("done by me\n");
     }
+
     else
     {
         pid_t child_pid = fork();
