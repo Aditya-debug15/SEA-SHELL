@@ -1,7 +1,7 @@
 #include "headers.h"
 #include "display.h"
 #include "echo_b.h"
-#include "pwd.h"
+#include "pwd_b.h"
 #include "cd_b.h"
 #include "ls_b.h"
 void execute(int task_id)
@@ -21,7 +21,7 @@ void execute(int task_id)
     else if(!strcmp("ls",argv[0]))
     {
         ls(i);
-        printf("done by me");
+        printf("done by me\n");
     }
     else if (!strcmp("echo", argv[0]))
     {
