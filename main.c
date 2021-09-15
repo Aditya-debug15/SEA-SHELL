@@ -4,6 +4,7 @@
 #include "pwd_b.h"
 #include "cd_b.h"
 #include "ls_b.h"
+#include "pinfo.h"
 void execute(int task_id)
 {
     int i = 0;
@@ -21,7 +22,7 @@ void execute(int task_id)
     else if(!strcmp("ls",argv[0]))
     {
         ls(i);
-        printf("done by me\n");
+        //printf("done by me\n");
     }
     else if (!strcmp("echo", argv[0]))
     {
@@ -36,9 +37,13 @@ void execute(int task_id)
     else if(!strcmp("cd",argv[0]))
     {
         cd(i);
-        printf("done by me\n");
+        //printf("done by me\n");
     }
-
+    else if(!strcmp("pinfo",argv[0]))
+    {
+        pinfo(i);
+        //printf("done by me\n");
+    }
     else
     {
         pid_t child_pid = fork();
