@@ -94,13 +94,13 @@ int isafile(int i)
     }
     return ((S_ISDIR(fileperms.st_mode)) ? 0 : 1);
 }
-void ls(int number)
+void ls(int start,int number)
 {
     // flags check karte
     bool flag_a = false;
     bool flag_l = false;
     int count_flags = 0;
-    for (int i = 1; i < number; i++)
+    for (int i = start; i < number; i++)
     {
         if (argv[i][0] == '-')
         {
@@ -180,7 +180,7 @@ void ls(int number)
     {
         if (!flag_a && !flag_l)
         {
-            for (int i = 1; i < number; i++)
+            for (int i = start; i < number; i++)
             {
                 if (argv[i][0] != '-')
                 {
@@ -215,7 +215,7 @@ void ls(int number)
         }
         else if (!flag_a && flag_l)
         {
-            for (int i = 1; i < number; i++)
+            for (int i = start; i < number; i++)
             {
                 if (argv[i][0] != '-')
                 {
@@ -258,7 +258,7 @@ void ls(int number)
         }
         else if (flag_a && !flag_l)
         {
-            for (int i = 1; i < number; i++)
+            for (int i = start; i < number; i++)
             {
                 if (argv[i][0] != '-')
                 {
@@ -290,7 +290,7 @@ void ls(int number)
         }
         else
         {
-            for (int i = 1; i < number; i++)
+            for (int i = start; i < number; i++)
             {
                 if (argv[i][0] != '-')
                 {

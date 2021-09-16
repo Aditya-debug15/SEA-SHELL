@@ -1,6 +1,6 @@
 #ifndef __PINFO_H
 #define __PINFO_H
 
-void pinfo(int number);
+void pinfo(int start,int number);
 
 #endif

@@ -1,9 +1,9 @@
 #include"headers.h"
 #include"echo_b.h"
 
-void echo(int number)
+void echo(int start,int number)
 {
-    for(int i=1;i<number;i++)
+    for(int i=start;i<number;i++)
     {
         printf("%s ",argv[i]);
     }

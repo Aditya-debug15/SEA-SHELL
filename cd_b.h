@@ -1,6 +1,6 @@
 #ifndef __CD_H
 #define __CD_H
 
-void cd(int number);
+void cd(int start,int number);
 
 #endif

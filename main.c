@@ -5,6 +5,7 @@
 #include "cd_b.h"
 #include "ls_b.h"
 #include "pinfo.h"
+#include "repeat.h"
 void execute(int task_id)
 {
     int i = 0;
@@ -21,28 +22,32 @@ void execute(int task_id)
     }
     else if(!strcmp("ls",argv[0]))
     {
-        ls(i);
+        ls(1,i);
         //printf("done by me\n");
     }
     else if (!strcmp("echo", argv[0]))
     {
-        echo(i);
+        echo(1,i);
         //printf("done by me\n");
     }
     else if (!strcmp("pwd", argv[0]))
     {
-        pwd(i);
+        pwd(0,i);
         //printf("done by me\n");
     }
     else if(!strcmp("cd",argv[0]))
     {
-        cd(i);
+        cd(0,i);
         //printf("done by me\n");
     }
     else if(!strcmp("pinfo",argv[0]))
     {
-        pinfo(i);
+        pinfo(0,i);
         //printf("done by me\n");
+    }
+    else if(!strcmp("repeat",argv[0]))
+    {
+        repeat(i);
     }
     else
     {

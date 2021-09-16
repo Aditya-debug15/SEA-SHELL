@@ -1,9 +1,9 @@
 #include"headers.h"
 #include"pwd_b.h"
 
-void pwd(int number)
+void pwd(int start,int number)
 {
-    if(number!=1)
+    if((number-start)!=1)
     {
         printf("Error!! some wrong number of commands given for pwd");
     }
