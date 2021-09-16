@@ -6,9 +6,11 @@
 #include "ls_b.h"
 #include "pinfo.h"
 #include "repeat.h"
+#include "leftover.h"
 void execute(int task_id)
 {
     int i = 0;
+    int back = 0;
     argv[0] = strtok(extra_task[task_id], " \t");
     while (argv[i] != NULL)
     {
@@ -16,59 +18,77 @@ void execute(int task_id)
         i++;
         argv[i] = strtok(NULL, " \t");
     }
-    if(!strcmp("exit",argv[0]))
+    for (int j = 0; j < i; j++)
+    {
+        if (!strcmp("&", argv[j]))
+        {
+            argv[j]="";
+            back = 1;
+            break;
+        }
+    }
+    if (!strcmp("exit", argv[0]))
     {
         exit(0);
     }
-    else if(!strcmp("ls",argv[0]))
+    else if (!strcmp("ls", argv[0]))
     {
-        ls(1,i);
+        ls(1, i);
         //printf("done by me\n");
     }
     else if (!strcmp("echo", argv[0]))
     {
-        echo(1,i);
+        echo(1, i);
         //printf("done by me\n");
     }
     else if (!strcmp("pwd", argv[0]))
     {
-        pwd(0,i);
+        pwd(0, i);
         //printf("done by me\n");
     }
-    else if(!strcmp("cd",argv[0]))
+    else if (!strcmp("cd", argv[0]))
     {
-        cd(0,i);
+        cd(0, i);
         //printf("done by me\n");
     }
-    else if(!strcmp("pinfo",argv[0]))
+    else if (!strcmp("pinfo", argv[0]))
     {
-        pinfo(0,i);
+        pinfo(0, i);
         //printf("done by me\n");
     }
-    else if(!strcmp("repeat",argv[0]))
+    else if (!strcmp("repeat", argv[0]))
     {
         repeat(i);
     }
     else
     {
-        pid_t child_pid = fork();
-        if (child_pid == 0)
+        leftover(i,back);
+        /*pid_t child_pid = fork();
+        if (child_pid < 0)
         {
-            /* Never returns if the call is successful */
+            printf(":( error while forking\n");
+        }
+        else if (child_pid == 0)
+        {
             if (execvp(argv[0], argv) < 0)
                 printf("This won't be printed if execvp is successul\n");
-            exit(0);
+            exit(EXIT_FAILURE);
+        }
+        if (back == 1)
+        {
+            printf("pid = %d\n", child_pid);
         }
         else
         {
-            wait(NULL);
-        }
+            int status;        
+            waitpid(child_pid, &status, WUNTRACED);
+        }*/
     }
 }
 
 int main()
 {
-    oldpwd=false;
+    oldpwd = false;
     username = (char *)malloc(1024);
     username = getenv("USER");
     gethostname(sys_name, sizeof(sys_name));
