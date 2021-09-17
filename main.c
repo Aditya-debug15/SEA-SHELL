@@ -22,13 +22,30 @@ void execute(int task_id)
     {
         if (!strcmp("&", argv[j]))
         {
-            argv[j]="";
+            argv[j] = "";
             back = 1;
             break;
         }
     }
     if (!strcmp("exit", argv[0]))
     {
+        FILE* fd=fopen(history_path,"w");
+        fprintf(fd,"%d\n",latest_number);
+        if(total_number<latest_number)
+        {
+            for(int i=0;i<latest_number;i++)
+            {
+                fprintf(fd,"%s",history[i]);
+            }
+        }
+        else
+        {
+            for(int i=0;i<20;i++)
+            {
+                fprintf(fd,"%s",history[i]);
+            }
+        }
+        fclose(fd);
         exit(0);
     }
     else if (!strcmp("ls", argv[0]))
@@ -62,7 +79,7 @@ void execute(int task_id)
     }
     else
     {
-        leftover(i,back);
+        leftover(i, back);
         /*pid_t child_pid = fork();
         if (child_pid < 0)
         {
@@ -85,9 +102,27 @@ void execute(int task_id)
         }*/
     }
 }
+void signalHandler_child(int p)
+{
+    int status;
+    pid_t pid = waitpid(-1, &status, WNOHANG);
+    if (pid > 0)
+    {
+
+        if (!status)
+            fprintf(stderr, "\n with pid %d exited normally\n", pid);
+        else
+            fprintf(stderr, "\n with pid %d exited abnormally\n", pid);
+        dis();
+        fflush(stdout);
+    }
+}
 
 int main()
 {
+    shellInFile = dup(STDIN_FILENO);
+    shellOutFile = dup(STDOUT_FILENO);
+    shellpid = getpid();
     oldpwd = false;
     username = (char *)malloc(1024);
     username = getenv("USER");
@@ -97,12 +132,44 @@ int main()
     char *line;
     size_t buf = 0;
     int read;
+    signal(SIGCHLD, signalHandler_child);
+    char* lineeo=NULL;
+    for(int karna=0;karna<20;karna++)
+    {
+        history[karna]=(char *)malloc(1024);   
+    }
+    history_path=(char*)malloc(1024);
+    sprintf(history_path,"%s/history.txt",tilda);
+    FILE* fd=fopen(history_path,"r");
+    //int filesize = lseek(fd, (off_t)0, SEEK_END);
+    int filesize;
+    if (fd == NULL){
+        filesize=0;
+    }
+    latest_number=0;
+    size_t readeo,len=0;
+    readeo=getline(&lineeo,&len,fd);
+    inital_number=atoi(lineeo);
+    while ((readeo = getline(&lineeo, &len, fd)) != -1)
+    {
+        if(strcmp(lineeo,"\n"))
+        {
+            strcpy(history[latest_number],lineeo);
+            latest_number++;
+        }
+    }
+    total_number=latest_number;
+    latest_number=inital_number;
+    fclose(fd);
     while (1)
     {
         dis();
         read = getline(&line, &buf, stdin);
         // hello\n input hai to line mai bhi hello\n
         // \n ko \0
+        strcpy(history[latest_number],line);
+        latest_number++;
+        latest_number%=20;
         line[read - 1] = '\0';
         // break it wrt ;
         // to get the number of commands

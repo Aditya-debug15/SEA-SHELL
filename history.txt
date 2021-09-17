@@ -1,0 +1,21 @@
+8
+cd -
+[D
+cd hello
+clear
+echo pwd
+pwd
+ls
+exit
+clear
+exit
+pwd
+exit
+repeat 2 ls
+exit
+pwd
+exit
+exit
+repeat 2 cd ..
+exit
+cd ..

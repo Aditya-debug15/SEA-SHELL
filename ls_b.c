@@ -121,7 +121,7 @@ void ls(int start,int number)
     // cases
     // 2^2=4 * 2(files/directory given or not)
 
-    if (count_flags + 1 == number)
+    if (count_flags + 1 == number-start +1)
     {
         // extra kuch given nahi
         // 4 cases

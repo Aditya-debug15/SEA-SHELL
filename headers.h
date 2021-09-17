@@ -13,9 +13,16 @@ char* task;
 char* extra_task[32];
 char *argv[32];
 char* username;
+char* history_path;
+char* history[20];
+int latest_number;
+int inital_number;
+int total_number;
 char sys_name[1024];
 char curr_dir[1024];
 bool oldpwd;
 char old_dir[1024];
 char tilda[1024];
+int shellInFile, shellOutFile;
+pid_t shellpid;
 #endif

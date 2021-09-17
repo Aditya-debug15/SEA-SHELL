@@ -3,6 +3,7 @@
 
 void leftover(int number, int back)
 {
+    int status;
     int j = 0;
     for (int i = 0; i < number; i++)
     {
@@ -20,6 +21,7 @@ void leftover(int number, int back)
     }
     else if (child_pid == 0)
     {
+        setpgid(0, 0);
         if (execvp(argv[0], argv) < 0)
             printf("This won't be printed if execvp is successul\n");
         exit(EXIT_FAILURE);
@@ -28,12 +30,26 @@ void leftover(int number, int back)
     {
         if (back == 1)
         {
+            dup2(shellOutFile, STDOUT_FILENO);
             printf("pid = %d\n", child_pid);
         }
         else
         {
-            int status;
+            // make the forground process group foreground
+            setpgid(child_pid, 0);
+            tcsetpgrp(0, child_pid);
+
+            // as shell will be removed from foreground so mute its call for I/O
+            signal(SIGTTIN, SIG_IGN);
+            signal(SIGTTOU, SIG_IGN);
+
             waitpid(child_pid, &status, WUNTRACED);
+
+            // shell to foreground now
+            tcsetpgrp(0, getpgid(0));
+
+            signal(SIGTTIN, SIG_DFL);
+            signal(SIGTTOU, SIG_DFL);
         }
     }
 }

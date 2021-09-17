@@ -85,7 +85,7 @@ void pinfo(int start, int number)
             {
                 tpgid = atoi(majboori);
             }
-            else if (position == 23)
+            else if (position == 18)
             {
                 virtual_memory = majboori;
             }
