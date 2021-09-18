@@ -1,21 +1,21 @@
-8
-cd -
-[D
-cd hello
-clear
-echo pwd
-pwd
-ls
+13
+ls -l .. hello/
 exit
+echo hello 	world
+clea
 clear
 exit
-pwd
+history
 exit
-repeat 2 ls
-exit
-pwd
-exit
-exit
-repeat 2 cd ..
-exit
+history 5
 cd ..
+cd -
+history 3
+exit
+clear
+exit
+echo hello world; echo fuckoff
+echo ye bhi sahi hai
+pwd
+exit
+exit

@@ -7,6 +7,7 @@
 #include "pinfo.h"
 #include "repeat.h"
 #include "leftover.h"
+#include "history.h"
 void execute(int task_id)
 {
     int i = 0;
@@ -29,24 +30,7 @@ void execute(int task_id)
     }
     if (!strcmp("exit", argv[0]))
     {
-        FILE* fd=fopen(history_path,"w");
-        fprintf(fd,"%d\n",latest_number);
-        if(total_number<latest_number)
-        {
-            for(int i=0;i<latest_number;i++)
-            {
-                fprintf(fd,"%s",history[i]);
-            }
-        }
-        else
-        {
-            for(int i=0;i<20;i++)
-            {
-                fprintf(fd,"%s",history[i]);
-            }
-        }
-        fclose(fd);
-        exit(0);
+        writetohistory();
     }
     else if (!strcmp("ls", argv[0]))
     {
@@ -76,6 +60,10 @@ void execute(int task_id)
     else if (!strcmp("repeat", argv[0]))
     {
         repeat(i);
+    }
+    else if (!strcmp("history", argv[0]))
+    {
+        commandhistory(i);
     }
     else
     {
@@ -133,43 +121,17 @@ int main()
     size_t buf = 0;
     int read;
     signal(SIGCHLD, signalHandler_child);
-    char* lineeo=NULL;
-    for(int karna=0;karna<20;karna++)
-    {
-        history[karna]=(char *)malloc(1024);   
-    }
-    history_path=(char*)malloc(1024);
-    sprintf(history_path,"%s/history.txt",tilda);
-    FILE* fd=fopen(history_path,"r");
-    //int filesize = lseek(fd, (off_t)0, SEEK_END);
-    int filesize;
-    if (fd == NULL){
-        filesize=0;
-    }
-    latest_number=0;
-    size_t readeo,len=0;
-    readeo=getline(&lineeo,&len,fd);
-    inital_number=atoi(lineeo);
-    while ((readeo = getline(&lineeo, &len, fd)) != -1)
-    {
-        if(strcmp(lineeo,"\n"))
-        {
-            strcpy(history[latest_number],lineeo);
-            latest_number++;
-        }
-    }
-    total_number=latest_number;
-    latest_number=inital_number;
-    fclose(fd);
+    readfromhistory();
+    // till here so why not new .c and .h file
     while (1)
     {
         dis();
         read = getline(&line, &buf, stdin);
         // hello\n input hai to line mai bhi hello\n
         // \n ko \0
-        strcpy(history[latest_number],line);
+        strcpy(history[latest_number], line);
         latest_number++;
-        latest_number%=20;
+        latest_number %= 20;
         line[read - 1] = '\0';
         // break it wrt ;
         // to get the number of commands
