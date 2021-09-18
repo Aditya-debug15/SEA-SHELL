@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include "linkedfgs.h"
 char* task;
 char* extra_task[32];
 char *argv[32];
@@ -25,4 +26,5 @@ char old_dir[1024];
 char tilda[1024];
 int shellInFile, shellOutFile;
 pid_t shellpid;
+ptrlist head;
 #endif

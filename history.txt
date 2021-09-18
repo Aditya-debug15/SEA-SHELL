@@ -1,21 +1,21 @@
-6
-ls -l ~/cd_b.c
-ls -a ~/.gitignore
-ls -al ~/.gitignore
-ls -al ~/.git
+2
 clear
 exit
-cd ~
-cd ~
-cd ~/hello
+sleep 1 &
+P
 clear
 exit
-ls ~
+sleep 4 &
 clear
 exit
-ls ~
-ls ~/hello
-ls -l ~
-clear
+sleep 10 &
+sleep 5 &
 exit
-ls ~
+sleep 5 &
+clear
+sleep 10 &
+nano A &
+
+pinfo 3057
+nano A
+pinfo 3057

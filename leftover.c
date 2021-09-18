@@ -1,6 +1,5 @@
 #include "headers.h"
 #include "leftover.h"
-
 void leftover(int number, int back)
 {
     int status;
@@ -31,6 +30,7 @@ void leftover(int number, int back)
         if (back == 1)
         {
             dup2(shellOutFile, STDOUT_FILENO);
+            InsertAtFront(&head,child_pid,argv[0]);
             printf("pid = %d\n", child_pid);
         }
         else

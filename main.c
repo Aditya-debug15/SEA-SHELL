@@ -31,6 +31,7 @@ void execute(int task_id)
     if (!strcmp("exit", argv[0]))
     {
         writetohistory();
+        EmptyList(head);
     }
     else if (!strcmp("ls", argv[0]))
     {
@@ -65,6 +66,11 @@ void execute(int task_id)
     {
         commandhistory(i);
     }
+    // For debugging purpose
+    else if (!strcmp("P", argv[0]))
+    {
+        PrintList(head);
+    }
     else
     {
         leftover(i, back);
@@ -96,11 +102,16 @@ void signalHandler_child(int p)
     pid_t pid = waitpid(-1, &status, WNOHANG);
     if (pid > 0)
     {
-
+        int pr=presentinlist(head,pid);
+        printf("\n");
+        if(pr)
+        {
+            removefromlist(&head,pid);
+        }
         if (!status)
-            printf("\n with pid %d exited normally\n", pid);
+            printf(" with pid %d exited normally\n",pid);
         else
-            printf("\n with pid %d exited abnormally\n", pid);
+            printf(" with pid %d exited abnormally\n", pid);
         dis();
         fflush(stdout);
     }
@@ -122,6 +133,7 @@ int main()
     int read;
     signal(SIGCHLD, signalHandler_child);
     readfromhistory();
+    head=CreateEmptyList();
     // till here so why not new .c and .h file
     while (1)
     {
