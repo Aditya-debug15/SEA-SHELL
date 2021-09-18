@@ -94,7 +94,16 @@ int isafile(int i)
     }
     return ((S_ISDIR(fileperms.st_mode)) ? 0 : 1);
 }
-void ls(int start,int number)
+int isafilewithpath(char* path)
+{
+    struct stat fileperms;
+    if (stat(path, &fileperms) == -1)
+    {
+        return -1;
+    }
+    return ((S_ISDIR(fileperms.st_mode)) ? 0 : 1);
+}
+void ls(int start, int number)
 {
     // flags check karte
     bool flag_a = false;
@@ -121,7 +130,7 @@ void ls(int start,int number)
     // cases
     // 2^2=4 * 2(files/directory given or not)
 
-    if (count_flags + 1 == number-start +1)
+    if (count_flags + 1 == number - start + 1)
     {
         // extra kuch given nahi
         // 4 cases
@@ -141,7 +150,7 @@ void ls(int start,int number)
                     printf("%s\n", de->d_name);
                 }
             }
-            printf("case 1 no flags no and no source given\n");
+            //printf("case 1 no flags no and no source given\n");
         }
         else if (!flag_a && flag_l)
         {
@@ -154,7 +163,7 @@ void ls(int start,int number)
                     printf(" %s\n", de->d_name);
                 }
             }
-            printf("case 2 -l flag and no source given\n");
+            //printf("case 2 -l flag and no source given\n");
         }
         else if (flag_a && !flag_l)
         {
@@ -162,7 +171,7 @@ void ls(int start,int number)
             {
                 printf("%s\t", de->d_name);
             }
-            printf("case 3 -a flag and no source given\n");
+            //printf("case 3 -a flag and no source given\n");
         }
         else
         {
@@ -172,7 +181,7 @@ void ls(int start,int number)
                 perm(de->d_name);
                 printf(" %s\n", de->d_name);
             }
-            printf("case 4 -la flag and no source given\n");
+            //printf("case 4 -la flag and no source given\n");
         }
         closedir(dr);
     }
@@ -184,7 +193,29 @@ void ls(int start,int number)
             {
                 if (argv[i][0] != '-')
                 {
-                    int type = isafile(i);
+                    /*
+                    bool edgecase=false;
+                    char temp[1024];
+                    char destination[1024];
+                    if (argv[start + 1][0] == '~' && strlen(argv[start + 1]) <= 2)
+                    {
+                        edgecase=true;
+                        strcpy(destination,tilda);
+                    }
+                    }*/
+                    if (argv[i][0] == '~')
+                    {
+                        char temp[1024];
+                        char destination[1024];
+                        strcpy(destination, tilda);
+                        int string_copy_len = strlen(argv[i]) - 1;
+                        strncpy(temp, argv[i] + 1, string_copy_len);
+                        temp[string_copy_len] = '\0';
+                        strcat(destination, temp);
+                        strcpy(argv[i], destination);
+                    }
+                    int type;
+                    type=isafile(i);
                     if (type == -1)
                     {
                         printf(":( Error while opening file\n");
@@ -211,7 +242,7 @@ void ls(int start,int number)
                     printf("\n");
                 }
             }
-            printf("case 5 no flags but source given\n");
+            //printf("case 5 no flags but source given\n");
         }
         else if (!flag_a && flag_l)
         {
@@ -219,6 +250,17 @@ void ls(int start,int number)
             {
                 if (argv[i][0] != '-')
                 {
+                    if (argv[i][0] == '~')
+                    {
+                        char temp[1024];
+                        char destination[1024];
+                        strcpy(destination, tilda);
+                        int string_copy_len = strlen(argv[i]) - 1;
+                        strncpy(temp, argv[i] + 1, string_copy_len);
+                        temp[string_copy_len] = '\0';
+                        strcat(destination, temp);
+                        strcpy(argv[i], destination);
+                    }
                     int type = isafile(i);
                     if (type == -1)
                     {
@@ -254,7 +296,7 @@ void ls(int start,int number)
                     printf("\n");
                 }
             }
-            printf("case 6 -l flags but source given\n");
+            //printf("case 6 -l flags but source given\n");
         }
         else if (flag_a && !flag_l)
         {
@@ -262,6 +304,17 @@ void ls(int start,int number)
             {
                 if (argv[i][0] != '-')
                 {
+                    if (argv[i][0] == '~')
+                    {
+                        char temp[1024];
+                        char destination[1024];
+                        strcpy(destination, tilda);
+                        int string_copy_len = strlen(argv[i]) - 1;
+                        strncpy(temp, argv[i] + 1, string_copy_len);
+                        temp[string_copy_len] = '\0';
+                        strcat(destination, temp);
+                        strcpy(argv[i], destination);
+                    }
                     int type = isafile(i);
                     if (type == -1)
                     {
@@ -286,7 +339,7 @@ void ls(int start,int number)
                     printf("\n");
                 }
             }
-            printf("case 7 -a flags but source given\n");
+            //printf("case 7 -a flags but source given\n");
         }
         else
         {
@@ -294,6 +347,17 @@ void ls(int start,int number)
             {
                 if (argv[i][0] != '-')
                 {
+                    if (argv[i][0] == '~')
+                    {
+                        char temp[1024];
+                        char destination[1024];
+                        strcpy(destination, tilda);
+                        int string_copy_len = strlen(argv[i]) - 1;
+                        strncpy(temp, argv[i] + 1, string_copy_len);
+                        temp[string_copy_len] = '\0';
+                        strcat(destination, temp);
+                        strcpy(argv[i], destination);
+                    }
                     int type = isafile(i);
                     if (type == -1)
                     {
@@ -326,7 +390,7 @@ void ls(int start,int number)
                     printf("\n");
                 }
             }
-            printf("case 8 -al flags but source given\n");
+            //printf("case 8 -al flags but source given\n");
         }
     }
 }

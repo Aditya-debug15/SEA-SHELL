@@ -1,21 +1,21 @@
-13
-ls -l .. hello/
-exit
-echo hello 	world
-clea
+6
+ls -l ~/cd_b.c
+ls -a ~/.gitignore
+ls -al ~/.gitignore
+ls -al ~/.git
 clear
 exit
-history
-exit
-history 5
-cd ..
-cd -
-history 3
-exit
+cd ~
+cd ~
+cd ~/hello
 clear
 exit
-echo hello world; echo fuckoff
-echo ye bhi sahi hai
-pwd
+ls ~
+clear
 exit
+ls ~
+ls ~/hello
+ls -l ~
+clear
 exit
+ls ~

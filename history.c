@@ -67,22 +67,26 @@ void commandhistory(int number)
         if (total_number >= latest_number)
         {
             // 20 commands hai
-            int startprinting = latest_number - 1;
+            int startprinting=latest_number-10;
+            if(startprinting<0)
+            {
+                startprinting+=20;
+            }
             for (int j = 0; j < 10; j++)
             {
-                if (startprinting == -1)
+                if (startprinting == 20)
                 {
-                    startprinting = 19;
+                    startprinting = 0;
                 }
                 printf("%s", history[startprinting]);
-                startprinting--;
+                startprinting++;
             }
         }
         else
         {
             if (latest_number >= 10)
             {
-                int startprinting = latest_number - 1;
+                int startprinting = latest_number - 10;
                 for (int j = 0; j < 10; j++)
                 {
                     if (startprinting == -1)
@@ -90,19 +94,15 @@ void commandhistory(int number)
                         startprinting = 19;
                     }
                     printf("%s", history[startprinting]);
-                    startprinting--;
+                    startprinting++;
                 }
             }
             else
             {
                 // sirf kuch hi honge
-                int startprinting = latest_number - 1;
-                for (; startprinting>=0; startprinting--)
+                int startprinting = 0;
+                for (; startprinting<latest_number; startprinting++)
                 {
-                    if (startprinting == -1)
-                    {
-                        startprinting = 19;
-                    }
                     printf("%s", history[startprinting]);
                 }
             }
@@ -114,37 +114,37 @@ void commandhistory(int number)
         if (total_number >= latest_number)
         {
             // 20 commands hai
-            int startprinting = latest_number - 1;
+            int startprinting=latest_number-kitna;
+            if(startprinting<0)
+            {
+                startprinting+=20;
+            }
             for (int j = 0; j < kitna; j++)
             {
-                if (startprinting == -1)
+                if (startprinting == 20)
                 {
-                    startprinting = 19;
+                    startprinting = 0;
                 }
                 printf("%s", history[startprinting]);
-                startprinting--;
+                startprinting++;
             }
         }
         else
         {
             if (latest_number >= kitna)
             {
-                int startprinting = latest_number - 1;
+                int startprinting = latest_number - kitna;
                 for (int j = 0; j < kitna; j++)
                 {
-                    if (startprinting == -1)
-                    {
-                        startprinting = 19;
-                    }
                     printf("%s", history[startprinting]);
-                    startprinting--;
+                    startprinting++;
                 }
             }
             else
             {
                 // sirf kuch hi honge
                 // error hi hoga
-                printf(":( we don't have these many commands in our history");
+                printf(":( we don't have these many commands in our history\n");
             }
         }
     }

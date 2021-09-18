@@ -98,9 +98,9 @@ void signalHandler_child(int p)
     {
 
         if (!status)
-            fprintf(stderr, "\n with pid %d exited normally\n", pid);
+            printf("\n with pid %d exited normally\n", pid);
         else
-            fprintf(stderr, "\n with pid %d exited abnormally\n", pid);
+            printf("\n with pid %d exited abnormally\n", pid);
         dis();
         fflush(stdout);
     }

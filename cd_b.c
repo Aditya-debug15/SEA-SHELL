@@ -15,7 +15,7 @@ void cd(int start,int number)
         getcwd(old_dir, sizeof(old_dir));
         oldpwd = true;
         chdir(tilda);
-        printf("2\n");
+        //printf("2\n");
     }
     else if ((number-start) == 2)
     {
@@ -33,7 +33,7 @@ void cd(int start,int number)
                 chdir(old_dir);
                 strcpy(old_dir, temp);
             }
-            printf("3\n");
+            //printf("3\n");
         }
         // cd ~
         else if (argv[start+1][0] == '~' && strlen(argv[start+1]) <= 2)
@@ -41,7 +41,7 @@ void cd(int start,int number)
             getcwd(old_dir, sizeof(old_dir));
             oldpwd = true;
             chdir(tilda);
-            printf("4\n");
+            //printf("4\n");
         }
         // cd ~/dir
         else if (argv[start+ 1][0] == '~')
@@ -49,24 +49,24 @@ void cd(int start,int number)
             char temp[1024];
             char destination[1024];
             strcpy(destination,tilda);
-            printf("%s\n",destination);
+            //printf("%s\n",destination);
             int string_copy_len = strlen(argv[start+1]) - 1;
             strncpy(temp, argv[start+1] + 1, string_copy_len);
             temp[string_copy_len]='\0';
-            printf("%s\n",temp);
+            //printf("%s\n",temp);
             strcat(destination,temp);
             getcwd(old_dir, sizeof(old_dir));
             oldpwd = true;
-            printf("%s\n",destination);
+            //printf("%s\n",destination);
             chdir(destination);
-            printf("5\n");
+            //printf("5\n");
         }
         else
         {
             getcwd(old_dir, sizeof(old_dir));
             oldpwd = true;
             chdir(argv[start+1]);
-            printf("6\n");
+            //printf("6\n");
         }
     }
 }

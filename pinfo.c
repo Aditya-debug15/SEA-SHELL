@@ -25,9 +25,11 @@ int search2(char *pat, char *txt)
 void pinfo(int start, int number)
 {
     int pid;
+    int flag=0;
     if ((number - start) == 1)
     {
         pid = (int)getpid();
+        flag=1;
     }
     else if ((number - start) == 2)
     {
@@ -91,7 +93,7 @@ void pinfo(int start, int number)
             }
             majboori = strtok(NULL, " ");
         }
-        if (pgr == tpgid)
+        if (pgr == tpgid || flag)
             strcat(process_state, "+");
         printf("Process state = %s\n", process_state);
         printf("Virtual Memory = %s\n", virtual_memory);
