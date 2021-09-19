@@ -1,21 +1,21 @@
-5
+3
+exit
+ls -l -l ~
+exit
+echo hello
+cd ..
+repeat 2 cd
 sleep 10 &
-pinfo 3089
-clear\
+vi A &
+echo sab sahi
+pwd
+pinfo
+P
 clear
 exit
-cat A
+P
+sleep 10 &
+vi &
+P
 exit
-cat A
-exit
-rm A
-vi A 
-nano A
-code A
-code A &
-cat A
-exit
-pinfo
-exit
-pinfo
-pinfo 1
+clear
