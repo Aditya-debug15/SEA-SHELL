@@ -1,21 +1,21 @@
-2
-clear
-exit
-sleep 1 &
-P
-clear
-exit
-sleep 4 &
-clear
-exit
+5
 sleep 10 &
-sleep 5 &
-exit
-sleep 5 &
+pinfo 3089
+clear\
 clear
-sleep 10 &
-nano A &
-
-pinfo 3057
+exit
+cat A
+exit
+cat A
+exit
+rm A
+vi A 
 nano A
-pinfo 3057
+code A
+code A &
+cat A
+exit
+pinfo
+exit
+pinfo
+pinfo 1

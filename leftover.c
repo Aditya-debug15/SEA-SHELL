@@ -2,6 +2,7 @@
 #include "leftover.h"
 void leftover(int number, int back)
 {
+    //printf("reached here\n");
     int status;
     int j = 0;
     for (int i = 0; i < number; i++)
@@ -35,6 +36,7 @@ void leftover(int number, int back)
         }
         else
         {
+            //printf("reached here\n");
             // make the forground process group foreground
             setpgid(child_pid, 0);
             tcsetpgrp(0, child_pid);

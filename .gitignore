@@ -2,4 +2,5 @@
 .hello/*
 .hello/trial/*
 testing.c
+testing2.c
 *.out

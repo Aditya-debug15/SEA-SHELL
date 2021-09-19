@@ -68,6 +68,7 @@ void pinfo(int start, int number)
         read(ravi_shastri, buff, 512);
         char *process_state;
         char *virtual_memory;
+        char *memory_mapping;
         char *majboori;
         majboori = strtok(buff, " ");
         int position = 0;
@@ -91,12 +92,17 @@ void pinfo(int start, int number)
             {
                 virtual_memory = majboori;
             }
+            else if (position == 23)
+            {
+                memory_mapping = majboori;
+            }
             majboori = strtok(NULL, " ");
         }
         if (pgr == tpgid || flag)
             strcat(process_state, "+");
-        printf("Process state = %s\n", process_state);
-        printf("Virtual Memory = %s\n", virtual_memory);
+        printf("Process state = { %s }\n", process_state);
+        printf("Memory Size = %s {Virtual Memory} \n", virtual_memory);
+        printf("Memory Mapping = %s {Virtual Memory} \n", memory_mapping);
         char buf[1024];
         size_t answer = readlink(path2, buf, 1024);
         if (answer > 0)

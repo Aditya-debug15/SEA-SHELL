@@ -31,7 +31,7 @@ void execute(int task_id)
     if (!strcmp("exit", argv[0]))
     {
         writetohistory();
-        EmptyList(head);
+        EmptyList(&head);
     }
     else if (!strcmp("ls", argv[0]))
     {
@@ -141,10 +141,23 @@ int main()
         read = getline(&line, &buf, stdin);
         // hello\n input hai to line mai bhi hello\n
         // \n ko \0
-        strcpy(history[latest_number], line);
-        latest_number++;
-        latest_number %= 20;
+        //printf("reached here\n");
+        int cheker;
+        if(latest_number==0)
+        {
+            cheker=19;
+        }
+        else{
+            cheker=latest_number-1;
+        }
+        if(strcmp(line,history[cheker]) && strcmp(line,"\n"))
+        {
+            strcpy(history[latest_number], line);
+            latest_number++;
+            latest_number %= 20;
+        }
         line[read - 1] = '\0';
+        //printf("reached here after line read\n");
         // break it wrt ;
         // to get the number of commands
         // break the command wrt to '' '\t'
