@@ -16,6 +16,10 @@ void readfromhistory()
     int filesize;
     if (fd == NULL)
     {
+
+        FILE *fde = fopen(history_path, "w");
+        fprintf(fde,"\n");
+        fclose(fde);
         total_number = 0;
         latest_number = 0;
     }
@@ -35,8 +39,8 @@ void readfromhistory()
         }
         total_number = latest_number;
         latest_number = inital_number;
+        fclose(fd);
     }
-    fclose(fd);
 }
 void writetohistory()
 {

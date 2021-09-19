@@ -1,21 +1,21 @@
-17
+4
 exit
-ls -l -l ~
-exit
-ls -l ls_b.h
-exit
-ls -l cd_b.h
-exit
-ls -l cd_b.h
+repeat 2 sleep 2
+history 20
 exit
 clear
-ls cd.h
-ls
-ls ls_b.h
-ls cd_b.h
-ls -l cd_b.h
+history
+pwd
+ls -l 		hello/
+echo hello    world
+echo pk    ma
+repeat 2 echo hello
+repeat 2 repeat 2 echo hello
+repeat 2 sleep 2
+clear
+sleep 2
+repeat 2 sleep 2
 clear
 exit
-P
-exit
+repeat 2 sleep 2
 clear
