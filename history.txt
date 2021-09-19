@@ -1,21 +1,21 @@
-3
+17
 exit
 ls -l -l ~
 exit
-echo hello
-cd ..
-repeat 2 cd
-sleep 10 &
-vi A &
-echo sab sahi
-pwd
-pinfo
-P
+ls -l ls_b.h
+exit
+ls -l cd_b.h
+exit
+ls -l cd_b.h
+exit
+clear
+ls cd.h
+ls
+ls ls_b.h
+ls cd_b.h
+ls -l cd_b.h
 clear
 exit
-P
-sleep 10 &
-vi &
 P
 exit
 clear

@@ -38,8 +38,32 @@ void perm(char *name)
     printf("%zu\t", fileperms.st_size);
     // time
     char *timing = ctime(&fileperms.st_mtime);
-    for (int i = 4; i <= 15; i++)
-        printf("%c", timing[i]);
+    for (int i = 4; i <= 10; i++)
+    {
+        printf("%c",timing[i]);
+    }
+    struct tm* ptrt;
+    time_t t;
+    t = time(NULL);
+    ptrt = localtime(&t);
+    //printf("%s ", timing);
+    double timediff = difftime(t,fileperms.st_mtime);
+    if(timediff>(15768000))
+    {
+        // more than 6 months
+        for(int i=20;i<=23;i++)
+        {
+            printf("%c",timing[i]);
+        }
+    }
+    else
+    {
+        for(int i=11;i<=15;i++)
+        {
+            printf("%c",timing[i]);
+        }
+    }
+    // printf("%f",timediff);
     // name
     //printf(" %s", fileperms.d);
 }
@@ -94,7 +118,7 @@ int isafile(int i)
     }
     return ((S_ISDIR(fileperms.st_mode)) ? 0 : 1);
 }
-int isafilewithpath(char* path)
+int isafilewithpath(char *path)
 {
     struct stat fileperms;
     if (stat(path, &fileperms) == -1)
@@ -215,7 +239,7 @@ void ls(int start, int number)
                         strcpy(argv[i], destination);
                     }
                     int type;
-                    type=isafile(i);
+                    type = isafile(i);
                     if (type == -1)
                     {
                         printf(":( Error while opening file\n");
