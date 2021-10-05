@@ -25,6 +25,7 @@ bool oldpwd;
 char old_dir[1024];
 char tilda[1024];
 int shellInFile, shellOutFile;
+int back_count;
 pid_t shellpid;
 ptrlist head;
 #endif

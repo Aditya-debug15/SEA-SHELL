@@ -19,6 +19,17 @@ ptrlist MakeNode(int x, char *name)
 
     return P;
 }
+ptrlist MakeNodeso(int x, char *name,int job_num)
+{
+    ptrlist P = (ptrlist)malloc(sizeof(node));
+    assert(P != NULL);
+    P->job_num=job_num;
+    P->pid = x;
+    P->command = (char*)malloc(1024);
+    strcpy(P->command, name);
+    P->next = NULL;
+    return P;
+}
 
 void InsertAtFront(List *L, int x, char *name)
 {
@@ -33,7 +44,29 @@ void InsertAtFront(List *L, int x, char *name)
         *L = P;
     }
 }
-
+void Insertso(List* L,int pid,int job_num,char* name)
+{
+    ptrlist P = MakeNodeso(pid,name,job_num);
+    if (*L == NULL)
+    {
+        (*L) = P;
+    }
+    else if(strcmp((*L)->command,name)>0)
+    {
+        P->next=(*L);
+        (*L)=P;
+    } 
+    else
+    {
+        ptrlist temp = *L;
+        while(temp->next!=NULL && strcmp(temp->next->command,name)<=0)
+        {
+            temp=temp->next;
+        }
+        P->next=temp->next;
+        temp->next=P;
+    }
+}
 void DeleteNode(ptrlist P)
 {
     if (P != NULL)
@@ -104,7 +137,7 @@ void PrintList(List L)
     List walk = L;
     while (walk != NULL)
     {
-        printf("%d %s\n", (walk)->pid,walk->command);
+        printf("[%d] %s [%d]\n", (walk)->job_num,walk->command,walk->pid);
         walk = (walk)->next;
     }
 }

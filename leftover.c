@@ -34,9 +34,17 @@ void leftover(int number, int back)
     {
         if (back == 1)
         {
+            back_count++;
             // NOW PARENT OF BACKGROUND PROCESS
             // dup2(shellOutFile, STDOUT_FILENO);
-            InsertAtFront(&head,child_pid,argv[0]);
+            char comm[1024];
+            strcpy(comm, argv[0]);
+            for (int i = 1; i < j; i++)
+            {
+                strcat(comm, " ");
+                strcat(comm, argv[i]);
+            }
+            Insertso(&head,child_pid,back_count,comm);
             // Adding name and pid of the process in linked list
             // Reason when process ends i need its name
             // Can't use /proc/pid/stat beacuse the process is no more
@@ -54,7 +62,7 @@ void leftover(int number, int back)
             signal(SIGTTIN, SIG_IGN);
             signal(SIGTTOU, SIG_IGN);
 
-            // waiting for child to be ended 
+            // waiting for child to be ended
             // WUNTRACED tells when the child is stopped due to sigstop
             waitpid(child_pid, &status, WUNTRACED);
 
