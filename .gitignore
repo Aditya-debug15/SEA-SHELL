@@ -1,6 +1,6 @@
 .vscode/*
 .hello/*
-.hello/trial/*
+trial/*
 testing.c
 testing2.c
 *.out
