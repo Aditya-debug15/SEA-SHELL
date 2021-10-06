@@ -18,9 +18,7 @@ void jobs(int start, int num_arguments)
             // All processes with status T are Stopped. Running is R and S
             int pid = walk->pid;
             char path1[1024];
-            char path2[1024];
             sprintf(path1, "/proc/%d/stat", pid);
-            sprintf(path2, "/proc/%d/exe", pid);
             int ravi_shastri; // opener :)
             ravi_shastri = open(path1, O_RDONLY);
             if (ravi_shastri == -1)

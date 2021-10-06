@@ -3,29 +3,30 @@
 #include "execute.h"
 #include "history.h"
 #include "pipe_b.h"
+#include "signal_b.h"
 void signalHandler_child(int p)
 {
     int status;
-    // Using both WNOHANG and WUNTRACED 
+    // Using both WNOHANG and WUNTRACED
     // so that even if the background process is stopped or exited i will have the signal
     pid_t pid = waitpid(-1, &status, WNOHANG | WUNTRACED);
     if (pid > 0)
     {
-        int pr=presentinlist(head,pid);
+        int pr = presentinlist(head, pid);
         printf("\n");
-        if(pr && (WIFEXITED(status) || WIFSIGNALED(status)))
+        if (pr && (WIFEXITED(status) || WIFSIGNALED(status)))
         {
-            removefromlist(&head,pid);
+            removefromlist(&head, pid);
             if (!status)
-                printf(" with pid %d exited normally\n",pid);
+                printf(" with pid %d exited normally\n", pid);
             else
                 printf(" with pid %d exited abnormally\n", pid);
             dis();
             fflush(stdout);
         }
-        else if(pr)
+        else if (pr)
         {
-            printf("task with pid %d is stopped\n",pid);
+            printf("task with pid %d is stopped\n", pid);
             dis();
             fflush(stdout);
         }
@@ -47,15 +48,18 @@ int main()
     size_t buf = 0;
     int read;
     signal(SIGCHLD, signalHandler_child);
+    signal(SIGTSTP, signal_for_cz);
+    signal(SIGINT, signal_for_cc);
     readfromhistory();
-    head=CreateEmptyList();
-    back_count=0;
+    head = CreateEmptyList();
+    back_count = 0;
+    process_pid = 0;
     // till here so why not new .c and .h file
     while (1)
     {
         dis();
         read = getline(&line, &buf, stdin);
-        if(read==-1)
+        if (read == -1)
         {
             // Ctrl + D
             printf("\n");
@@ -66,14 +70,15 @@ int main()
         // \n ko \0
         //printf("reached here\n");
         int cheker;
-        if(latest_number==0)
+        if (latest_number == 0)
         {
-            cheker=19;
+            cheker = 19;
         }
-        else{
-            cheker=latest_number-1;
+        else
+        {
+            cheker = latest_number - 1;
         }
-        if(strcmp(line,history[cheker]) && strcmp(line,"\n"))
+        if (strcmp(line, history[cheker]) && strcmp(line, "\n"))
         {
             strcpy(history[latest_number], line);
             latest_number++;
@@ -98,23 +103,24 @@ int main()
         // case 2 |
         // case 3 <,|
         // acse 4 nothing
-        bool condition2=false;
+        bool condition2 = false;
         for (int j = 0; j < number_of_task; j++)
         {
-            for(int i=0;i<strlen(extra_task[j]);i++)
+            for (int i = 0; i < strlen(extra_task[j]); i++)
             {
-                if(extra_task[j][i]=='|')
+                if (extra_task[j][i] == '|')
                 {
-                    condition2=true;
+                    condition2 = true;
                     break;
                 }
             }
-            if(condition2)
+            if (condition2)
             {
                 // case 3
                 pipe_b(j);
             }
-            else{
+            else
+            {
                 execute(j);
             }
         }

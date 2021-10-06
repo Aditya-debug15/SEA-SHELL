@@ -134,6 +134,28 @@ void removefromlist(List *L, int x)
     free(temp->command);
     free(temp);
 }
+void removefromlist_withoutprinting(List *L, int x)
+{
+    ptrlist temp = *L, prev;
+    if (temp != NULL && temp->pid == x)
+    {
+        (*L) = temp->next;
+        free(temp->command);
+        free(temp);             
+        return;
+    }
+    while (temp != NULL && temp->pid != x)
+    {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (temp == NULL)
+        return;
+
+    prev->next = temp->next;
+    free(temp->command);
+    free(temp);
+}
 
 void EmptyList(List *L)
 {

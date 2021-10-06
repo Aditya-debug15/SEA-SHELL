@@ -29,6 +29,8 @@ int         pidfromjob(List L,int job_num);
 
 void        removefromlist(List* L,int x);
 
+void        removefromlist_withoutprinting(List *L, int x);
+
 void        EmptyList(List* L);
 
 void        DeleteList(List* L);

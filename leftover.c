@@ -44,7 +44,7 @@ void leftover(int number, int back)
                 strcat(comm, " ");
                 strcat(comm, argv[i]);
             }
-            Insertso(&head,child_pid,back_count,comm);
+            Insertso(&head, child_pid, back_count, comm);
             // Adding name and pid of the process in linked list
             // Reason when process ends i need its name
             // Can't use /proc/pid/stat beacuse the process is no more
@@ -64,13 +64,27 @@ void leftover(int number, int back)
 
             // waiting for child to be ended
             // WUNTRACED tells when the child is stopped due to sigstop
+            process_pid = child_pid;
             waitpid(child_pid, &status, WUNTRACED);
-
             // Need to make the shell as foreground again
             tcsetpgrp(0, getpgid(0));
             // Giving back its signal rights
             signal(SIGTTIN, SIG_DFL);
             signal(SIGTTOU, SIG_DFL);
+            // if we get ctrl z signal
+            if (WIFSTOPPED(status))
+            {
+                back_count++;
+                char comm[1024];
+                strcpy(comm, argv[0]);
+                for (int i = 1; i < j; i++)
+                {
+                    strcat(comm, " ");
+                    strcat(comm, argv[i]);
+                }
+                Insertso(&head, child_pid, back_count, comm);
+            }
+            process_pid = 0;
         }
     }
 }

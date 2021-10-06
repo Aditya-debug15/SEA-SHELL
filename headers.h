@@ -27,5 +27,6 @@ char tilda[1024];
 int shellInFile, shellOutFile;
 int back_count;
 pid_t shellpid;
+pid_t process_pid;
 ptrlist head;
 #endif

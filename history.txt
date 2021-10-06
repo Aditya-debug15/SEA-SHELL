@@ -1,21 +1,21 @@
-18
+3
 sig 1 18
-sleep 15 &
-sig 3 19
-sleep 15 &
-jobs
-sig 3 18
-vi A &
-sig 5 18
-clear
-sleep 5 &
-[C[C\
-jobs
-sig 5 18
-sig 5 9
-exit
-vi A 
 jobs
 exit
-sig 1 19
+jobs
+sleep 10 &
+jobs
+exit
+sleep 10
+jobs
+exit
+sleep 10 
+jobs
+P
+exit
+sleep 10
+exit
+sleep 10
+exit
+sleep 10
 jobs

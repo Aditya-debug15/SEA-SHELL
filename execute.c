@@ -11,6 +11,8 @@
 #include "ioredirect.h"
 #include "jobs_b.h"
 #include "sig_b.h"
+#include "fg_b.h"
+#include "bg_b.h"
 void execute(int task_id)
 {
     int i = 0;
@@ -88,6 +90,14 @@ void execute(int task_id)
     else if(!strcmp("sig",argv[0]))
     {
         sig(0,i);
+    }
+    else if(!strcmp("fg",argv[0]))
+    {
+        fg(0,i);
+    }
+    else if(!strcmp("bg",argv[0]))
+    {
+        bg(0,i);
     }
     // For debugging purpose
     else if (!strcmp("P", argv[0]))
