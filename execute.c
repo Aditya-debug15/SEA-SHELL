@@ -10,6 +10,7 @@
 #include "history.h"
 #include "ioredirect.h"
 #include "jobs_b.h"
+#include "sig_b.h"
 void execute(int task_id)
 {
     int i = 0;
@@ -44,8 +45,8 @@ void execute(int task_id)
     }
     if (!strcmp("exit", argv[0]))
     {
-        writetohistory();
         EmptyList(&head);
+        writetohistory();
     }
     else if (!strcmp("ls", argv[0]))
     {
@@ -83,6 +84,10 @@ void execute(int task_id)
     else if(!strcmp("jobs",argv[0]))
     {
         jobs(0,i);
+    }
+    else if(!strcmp("sig",argv[0]))
+    {
+        sig(0,i);
     }
     // For debugging purpose
     else if (!strcmp("P", argv[0]))

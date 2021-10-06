@@ -13,7 +13,7 @@ void signalHandler_child(int p)
     {
         int pr=presentinlist(head,pid);
         printf("\n");
-        if(pr && WIFEXITED(status))
+        if(pr && (WIFEXITED(status) || WIFSIGNALED(status)))
         {
             removefromlist(&head,pid);
             if (!status)
@@ -55,6 +55,13 @@ int main()
     {
         dis();
         read = getline(&line, &buf, stdin);
+        if(read==-1)
+        {
+            // Ctrl + D
+            printf("\n");
+            EmptyList(&head);
+            writetohistory();
+        }
         // hello\n input hai to line mai bhi hello\n
         // \n ko \0
         //printf("reached here\n");

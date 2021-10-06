@@ -94,6 +94,22 @@ int presentinlist(List L,int x)
     }
 }
 
+int pidfromjob(List L,int job_num)
+{
+    ptrlist temp = L;
+    while (temp!=NULL && temp->job_num!=job_num)
+    {
+        temp=temp->next;
+    }
+    if(temp==NULL)
+    {
+        return -1;
+    }
+    else{
+        return temp->pid;
+    }
+}
+
 void removefromlist(List *L, int x)
 {
     ptrlist temp = *L, prev;

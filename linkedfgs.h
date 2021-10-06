@@ -12,26 +12,28 @@ struct node{
     ptrlist next;
 };
 
-ptrlist CreateEmptyList();
+ptrlist     CreateEmptyList();
 
-ptrlist MakeNode(int x,char* name);
-ptrlist MakeNodeso(int x,char* name,int job_num);
+ptrlist     MakeNode(int x,char* name);
+ptrlist     MakeNodeso(int x,char* name,int job_num);
 
-void InsertAtFront(List* L,int x,char* name);
+void        InsertAtFront(List* L,int x,char* name);
 
-void Insertso(List* L,int pid,int job_num,char* name);
+void        Insertso(List* L,int pid,int job_num,char* name);
 
-void DeleteNode(ptrlist P);
+void        DeleteNode(ptrlist P);
 
-int presentinlist(List L,int x);
+int         presentinlist(List L,int x);
 
-void removefromlist(List* L,int x);
+int         pidfromjob(List L,int job_num);
 
-void EmptyList(List* L);
+void        removefromlist(List* L,int x);
 
-void DeleteList(List* L);
+void        EmptyList(List* L);
 
-void PrintList(List L);
+void        DeleteList(List* L);
+
+void        PrintList(List L);
 
 
 #endif
