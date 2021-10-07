@@ -74,6 +74,7 @@ void leftover(int number, int back)
             // if we get ctrl z signal
             if (WIFSTOPPED(status))
             {
+                printf("\n");
                 back_count++;
                 char comm[1024];
                 strcpy(comm, argv[0]);

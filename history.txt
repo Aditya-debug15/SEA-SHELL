@@ -1,21 +1,21 @@
-3
-sig 1 18
-jobs
-exit
-jobs
-sleep 10 &
-jobs
-exit
-sleep 10
-jobs
-exit
-sleep 10 
+18
 jobs
 P
 exit
-sleep 10
-exit
-sleep 10
-exit
-sleep 10
+clear
+vi A.txt
 jobs
+vi A.txt
+jobs
+vi A.txt
+jobs
+fg 1
+jobs
+sig 1 9
+fg 2
+jobs
+sig 2 9
+clear
+exit
+jobs
+fg 1

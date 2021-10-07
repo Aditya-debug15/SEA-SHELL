@@ -13,19 +13,19 @@ ptrlist MakeNode(int x, char *name)
     assert(P != NULL);
 
     P->pid = x;
-    P->command = (char*)malloc(1024);
+    P->command = (char *)malloc(1024);
     strcpy(P->command, name);
     P->next = NULL;
 
     return P;
 }
-ptrlist MakeNodeso(int x, char *name,int job_num)
+ptrlist MakeNodeso(int x, char *name, int job_num)
 {
     ptrlist P = (ptrlist)malloc(sizeof(node));
     assert(P != NULL);
-    P->job_num=job_num;
+    P->job_num = job_num;
     P->pid = x;
-    P->command = (char*)malloc(1024);
+    P->command = (char *)malloc(1024);
     strcpy(P->command, name);
     P->next = NULL;
     return P;
@@ -44,27 +44,27 @@ void InsertAtFront(List *L, int x, char *name)
         *L = P;
     }
 }
-void Insertso(List* L,int pid,int job_num,char* name)
+void Insertso(List *L, int pid, int job_num, char *name)
 {
-    ptrlist P = MakeNodeso(pid,name,job_num);
+    ptrlist P = MakeNodeso(pid, name, job_num);
     if (*L == NULL)
     {
         (*L) = P;
     }
-    else if(strcmp((*L)->command,name)>0)
+    else if (strcmp((*L)->command, name) > 0)
     {
-        P->next=(*L);
-        (*L)=P;
-    } 
+        P->next = (*L);
+        (*L) = P;
+    }
     else
     {
         ptrlist temp = *L;
-        while(temp->next!=NULL && strcmp(temp->next->command,name)<=0)
+        while (temp->next != NULL && strcmp(temp->next->command, name) <= 0)
         {
-            temp=temp->next;
+            temp = temp->next;
         }
-        P->next=temp->next;
-        temp->next=P;
+        P->next = temp->next;
+        temp->next = P;
     }
 }
 void DeleteNode(ptrlist P)
@@ -76,15 +76,14 @@ void DeleteNode(ptrlist P)
     }
 }
 
-
-int presentinlist(List L,int x)
+int presentinlist(List L, int x)
 {
     ptrlist temp = L;
-    while(temp!= NULL && temp->pid!=x)
+    while (temp != NULL && temp->pid != x)
     {
-        temp=temp->next;
+        temp = temp->next;
     }
-    if(temp==NULL)
+    if (temp == NULL)
     {
         return -1;
     }
@@ -94,31 +93,48 @@ int presentinlist(List L,int x)
     }
 }
 
-int pidfromjob(List L,int job_num)
+int pidfromjob(List L, int job_num)
 {
     ptrlist temp = L;
-    while (temp!=NULL && temp->job_num!=job_num)
+    while (temp != NULL && temp->job_num != job_num)
     {
-        temp=temp->next;
+        temp = temp->next;
     }
-    if(temp==NULL)
+    if (temp == NULL)
     {
         return -1;
     }
-    else{
+    else
+    {
         return temp->pid;
     }
 }
 
+void commfrompid(List L, int pid, char M[])
+{
+    ptrlist temp = L;
+    while (temp != NULL && temp->pid!=pid)
+    {
+        temp = temp->next;
+    }
+    if (temp == NULL)
+    {
+        return;
+    }
+    else
+    {
+        strcpy(M,temp->command);
+    }
+}
 void removefromlist(List *L, int x)
 {
     ptrlist temp = *L, prev;
     if (temp != NULL && temp->pid == x)
     {
         (*L) = temp->next;
-        printf("%s",temp->command);
+        printf("%s", temp->command);
         free(temp->command);
-        free(temp);             
+        free(temp);
         return;
     }
     while (temp != NULL && temp->pid != x)
@@ -130,7 +146,7 @@ void removefromlist(List *L, int x)
         return;
 
     prev->next = temp->next;
-    printf("%s",temp->command);
+    printf("%s", temp->command);
     free(temp->command);
     free(temp);
 }
@@ -141,7 +157,7 @@ void removefromlist_withoutprinting(List *L, int x)
     {
         (*L) = temp->next;
         free(temp->command);
-        free(temp);             
+        free(temp);
         return;
     }
     while (temp != NULL && temp->pid != x)
@@ -175,7 +191,7 @@ void PrintList(List L)
     List walk = L;
     while (walk != NULL)
     {
-        printf("[%d] %s [%d]\n", (walk)->job_num,walk->command,walk->pid);
+        printf("[%d] %s [%d]\n", (walk)->job_num, walk->command, walk->pid);
         walk = (walk)->next;
     }
 }

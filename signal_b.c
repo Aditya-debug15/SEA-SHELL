@@ -27,7 +27,6 @@ void signal_for_cz(int p)
     {
         raise(SIGTSTP);
     }
-    printf("Here\n");
     printf("\n");
     dis();
     fflush(stdout);

@@ -27,6 +27,8 @@ int         presentinlist(List L,int x);
 
 int         pidfromjob(List L,int job_num);
 
+void        commfrompid(List L,int pid,char M[]);
+
 void        removefromlist(List* L,int x);
 
 void        removefromlist_withoutprinting(List *L, int x);

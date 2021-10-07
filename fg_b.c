@@ -16,9 +16,11 @@ void fg(int start, int num_arg)
         return;
     }
     // remove kardo list se
-    removefromlist_withoutprinting(&head,pid_job);
+    // removefromlist_withoutprinting(&head, pid_job);
     // as shell will be removed from foreground so mute its call for I/O
     // else that I/O will be given to all the bg processes
+    int status;
+    process_pid=pid_job;
     signal(SIGTTIN, SIG_IGN);
     signal(SIGTTOU, SIG_IGN);
     tcsetpgrp(0, getpgid(pid_job));
@@ -27,9 +29,24 @@ void fg(int start, int num_arg)
         perror("Error");
     }
     // waitpid(pid, NULL, 0);
-    waitpid(pid_job,NULL, WUNTRACED);   
+    waitpid(pid_job, &status, WUNTRACED);
     tcsetpgrp(0, getpgid(0));
     // Giving back its signal rights
     signal(SIGTTIN, SIG_DFL);
     signal(SIGTTOU, SIG_DFL);
+    if (WIFSTOPPED(status))
+    {
+        //back_count++;
+        // char comm[1024];
+        // get comm bnana hoga
+        printf("\n");
+        // commfrompid(head,pid_job,comm);
+        // removefromlist_withoutprinting(&head, pid_job);
+        // Insertso(&head, pid_job, back_count, comm);
+    }
+    else
+    {
+        removefromlist_withoutprinting(&head, pid_job);
+    }
+    process_pid=0;
 }
