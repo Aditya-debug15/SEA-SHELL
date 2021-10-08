@@ -3,11 +3,29 @@
 
 void jobs(int start, int num_arguments)
 {
-    if (num_arguments > 2)
+    bool flag_r = false;
+    bool flag_s = false;
+    int count_flags = 0;
+    for (int i = start; i < num_arguments; i++)
     {
-        printf("Incorrect number of inputs\n");
+        if (argv[i][0] == '-')
+        {
+            for (int j = 1; j < strlen(argv[i]); j++)
+            {
+                if (argv[i][j] == 'r')
+                {
+                    flag_r = true;
+                }
+                else if (argv[i][j] == 's')
+                {
+                    flag_s = true;
+                }
+            }
+            count_flags++;
+        }
     }
-    if (num_arguments == 1)
+    //printf("%d %d\n",num_arguments,count_flags);
+    if (num_arguments == 1 || ((num_arguments == (count_flags+ 1)) && flag_r &&flag_s))
     {
         // no flags wala case
         // print all
@@ -55,23 +73,10 @@ void jobs(int start, int num_arguments)
             }
         }
     }
-    else
+    else if(num_arguments == (count_flags + 1))
     {
         // flags wala case
         // print all
-        char flag;
-        if(!strcmp("-r",argv[1]))
-        {
-            flag='r';
-        }
-        else if(!strcmp("-s",argv[1]))
-        {
-            flag='s';
-        }
-        else{
-            printf("Incorrect arguments\n");
-            return;
-        } 
         List walk = head;
         while (walk != NULL)
         {
@@ -105,12 +110,12 @@ void jobs(int start, int num_arguments)
                     }
                     majboori = strtok(NULL, " ");
                 }
-                if ((!strcmp(process_state, "R") || !strcmp(process_state, "S")) && flag=='r')
+                if ((!strcmp(process_state, "R") || !strcmp(process_state, "S")) && flag_r)
                 {
                     strcpy(process_state, "Running");
                     printf("[%d] %s %s [%d]\n", (walk)->job_num, process_state, walk->command, walk->pid);
                 }
-                else if(!strcmp(process_state,"T") && flag=='s')
+                else if(!strcmp(process_state,"T") && flag_s)
                 {
                     strcpy(process_state, "Stopped");
                     printf("[%d] %s %s [%d]\n", (walk)->job_num, process_state, walk->command, walk->pid);
@@ -118,5 +123,8 @@ void jobs(int start, int num_arguments)
                 walk = (walk)->next;
             }
         }
+    }
+    else{
+        printf(":( Incorrect number of arguments\n");
     }
 }

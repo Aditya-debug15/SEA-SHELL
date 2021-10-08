@@ -13,6 +13,7 @@
 #include "sig_b.h"
 #include "fg_b.h"
 #include "bg_b.h"
+#include "replay.h"
 void execute(int task_id)
 {
     int i = 0;
@@ -98,6 +99,10 @@ void execute(int task_id)
     else if(!strcmp("bg",argv[0]))
     {
         bg(0,i);
+    }
+    else if(!strcmp("replay",argv[0]))
+    {
+        replay(0,i);
     }
     // For debugging purpose
     else if (!strcmp("P", argv[0]))
