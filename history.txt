@@ -1,15 +1,15 @@
-5
+11
 exit
 replay -command echo hi -interval 3 -period 6
 replay -command echo hi -interval 3 -period 8
 replay -interval 2 -period 11 -command ls
 exit
-jobs h
-sig 1 9
-sig 2 9
-clear
+replay -command ls -interval 6 -period 12 | cat
+replay -command ls -interval 6 -period 12
+ls | grep .*.txt
 exit
-replay -interval 3 -period 4 -command echo hi
+replay -command ls -interval 6 -period 12 | cat
+exit
 exit
 replay -interval 3 -period 4 -command echo hi
 replay -command echo hello pk  madarchod -interval 3 -period 4

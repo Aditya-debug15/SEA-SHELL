@@ -211,6 +211,22 @@ void execute_withstring(char* s)
     {
         jobs(0,i);
     }
+    else if(!strcmp("sig",argv[0]))
+    {
+        sig(0,i);
+    }
+    else if(!strcmp("fg",argv[0]))
+    {
+        fg(0,i);
+    }
+    else if(!strcmp("bg",argv[0]))
+    {
+        bg(0,i);
+    }
+    else if(!strcmp("replay",argv[0]))
+    {
+        replay(0,i);
+    }
     // For debugging purpose
     else if (!strcmp("P", argv[0]))
     {
